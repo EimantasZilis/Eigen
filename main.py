@@ -1,13 +1,18 @@
-import user_input as parser
+import argparse
 from file.management import Directory
+
+def cmd_parser():
+    """ Initialise and define user input commands """
+    parser = argparse.ArgumentParser(description='Create hashtags')
+    parser.add_argument("-p", nargs="+", dest="path", help="Enter path. \
+                        It finds all files within and generates hashtags")
+    return parser.parse_args()
 
 def main():
 
-    cmd = parser.init_parser()
+    cmd = cmd_parser()
     if cmd.path:
         folder = Directory(cmd.path[0])
         folder.read_files()
-
-
 if __name__ == "__main__":
     main()
