@@ -14,7 +14,7 @@ class Directory:
         if not path.exists():
             raise ValueError('"{}" path does not exist'.format(self.path))
 
-    def read_files(self):
+    def get_files(self):
         """ Get all files from directory and its sub folders
         and read them"""
         for dirpath, dirs, files in os.walk(self.path):
@@ -23,7 +23,7 @@ class Directory:
                 if file.is_valid():
                     file.read()
                     if file.data is not None:
-                        self.files.append(file)
+                        yield file
 
 class File:
     def __init__(self, path, filename):

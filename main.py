@@ -1,5 +1,5 @@
 import argparse
-from file.management import Directory
+import data.tables
 
 def cmd_parser():
     """ Initialise and define user input commands """
@@ -9,10 +9,9 @@ def cmd_parser():
     return parser.parse_args()
 
 def main():
-
     cmd = cmd_parser()
     if cmd.path:
-        folder = Directory(cmd.path[0])
-        folder.read_files()
+        sentences = data.tables.Sentences(cmd.path)
+
 if __name__ == "__main__":
     main()
