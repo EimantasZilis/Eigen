@@ -1,6 +1,9 @@
+from pathlib import Path
 
-""" Specifies compatible file formats. Use appropriate
-classes to extract raw text from relevant file format. """
+""" Module specifies valid extensions for reading data.
+Each valid extension is represented by a class. For any
+new filetypes, a class must be defined and a mapping
+added to VALID_EXTENSIONS"""
 
 class Txt:
     """ Class for reading .txt files """
@@ -11,7 +14,7 @@ class Txt:
 
     def read(self):
         try:
-            with open(self.filepath, "r") as file:
+            with open(self.filepath, "r", encoding="utf8") as file:
                 self.raw = file.readlines()
         except FileNotFoundError:
             pass
@@ -25,6 +28,7 @@ class Pdf:
         self.read()
 
     def read(self):
+        # Not implemented
         pass
 
 class Docx:
@@ -36,4 +40,8 @@ class Docx:
         self.read()
 
     def read(self):
+        # Not implemented
         pass
+
+
+VALID_EXTENSIONS = {".txt": Txt, ".pdf": Pdf, ".docx": Docx}
