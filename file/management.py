@@ -22,7 +22,8 @@ class Directory:
                 file = File(dirpath, filename)
                 if file.is_valid():
                     file.read()
-                    self.files.append(file)
+                    if file.data is not None:
+                        self.files.append(file)
 
 class File:
     def __init__(self, path, filename):
