@@ -5,7 +5,6 @@ from file import extensions
 class Directory:
     def __init__(self, path):
         self.path = path
-        self.files = []
         self.validate()
 
     def validate(self):
