@@ -15,7 +15,9 @@ class Txt:
     def read(self):
         try:
             with open(self.filepath, "r", encoding="utf8") as file:
-                self.raw = file.readlines()
+                data = file.readlines()
+                if data:
+                    self.raw = data
         except FileNotFoundError:
             pass
 

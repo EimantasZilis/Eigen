@@ -5,7 +5,6 @@ from file import extensions
 class Directory:
     def __init__(self, path):
         self.path = path
-        self.files = []
         self.validate()
 
     def validate(self):
@@ -14,7 +13,7 @@ class Directory:
         if not path.exists():
             raise ValueError('"{}" path does not exist'.format(self.path))
 
-    def read_files(self):
+    def get_files(self):
         """ Get all files from directory and its sub folders
         and read them"""
         for dirpath, dirs, files in os.walk(self.path):
@@ -22,14 +21,17 @@ class Directory:
                 file = File(dirpath, filename)
                 if file.is_valid():
                     file.read()
-                    self.files.append(file)
+                    if file.raw is not None:
+                        yield file
 
 class File:
     def __init__(self, path, filename):
         self.filename = filename
         self.extension = None
         self.path = path
-        self.data = None
+        self.raw = None
+        self.sentences = None
+        self.words = None
         self.initialise()
 
     def initialise(self):
@@ -39,7 +41,7 @@ class File:
         file_reader = self.reader()
         full_path = self.full_path()
         freader = file_reader(full_path)
-        self.data = freader.raw
+        self.raw = freader.raw
 
     def reader(self):
         """ Return a file reader based on the extension
