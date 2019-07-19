@@ -30,6 +30,8 @@ class File:
         self.extension = None
         self.path = path
         self.data = None
+        self.sentences = None
+        self.words = None
         self.initialise()
 
     def initialise(self):
