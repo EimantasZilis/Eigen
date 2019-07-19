@@ -47,7 +47,7 @@ class DataImport:
     def tokenize_sentences(file):
         """ Split text by sentences """
         fsentences = []
-        for line in file.data:
+        for line in file.raw:
             fsentences.extend(sent_tokenize(line))
         file.sentences = fsentences
 

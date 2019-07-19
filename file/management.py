@@ -21,7 +21,7 @@ class Directory:
                 file = File(dirpath, filename)
                 if file.is_valid():
                     file.read()
-                    if file.data is not None:
+                    if file.raw is not None:
                         yield file
 
 class File:
@@ -29,7 +29,7 @@ class File:
         self.filename = filename
         self.extension = None
         self.path = path
-        self.data = None
+        self.raw = None
         self.sentences = None
         self.words = None
         self.initialise()
@@ -41,7 +41,7 @@ class File:
         file_reader = self.reader()
         full_path = self.full_path()
         freader = file_reader(full_path)
-        self.data = freader.raw
+        self.raw = freader.raw
 
     def reader(self):
         """ Return a file reader based on the extension
