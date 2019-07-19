@@ -1,5 +1,5 @@
 import argparse
-import data.tables
+import data
 
 def cmd_parser():
     """ Initialise and define user input commands """
@@ -11,7 +11,7 @@ def cmd_parser():
 def main():
     cmd = cmd_parser()
     if cmd.path:
-        sentences = data.tables.Sentences(cmd.path)
+        sentences = data.DataImport(cmd.path)
 
 if __name__ == "__main__":
     main()

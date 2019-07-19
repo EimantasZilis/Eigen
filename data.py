@@ -9,9 +9,11 @@ from file.management import Directory
 STOP_WORDS = set(stopwords.words('english'))
 LEM = WordNetLemmatizer()
 
-class Sentences:
-    """ Use file.management.Directory object to
-    extract and parse sentences from data files """
+class DataImport:
+    """ Checks all input paths, gets all files, subfolders,
+    import the data from supported files and cleans it. It
+    removes stopwords and lemmatizes words """
+
     def __init__(self, paths):
         self.paths = paths
         self.files = []
