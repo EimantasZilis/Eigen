@@ -27,13 +27,8 @@ class Sentences:
         """ Check directory and process files within"""
         dir = Directory(path)
         for file in dir.get_files():
-            self.tokenize_data(file)
-            self.files.append(file)
-
-    def tokenize_data(self, file):
-        """ Tokenize data in file"""
-        self.tokenize_sentences(file)
-        self.tokenize_words(file)
+            self.tokenize_sentences(file)
+            self.tokenize_words(file)
 
     @staticmethod
     def tokenize_sentences(file):
@@ -45,7 +40,4 @@ class Sentences:
 
     @staticmethod
     def tokenize_words(file):
-        twords = []
-        for fsentence in file.sentences:
-            twords.append(word_tokenize(fsentence))
-        file.words = twords
+        file.words = [word_tokenize(words) for words in file.sentences]
