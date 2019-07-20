@@ -21,6 +21,8 @@ def main():
 
     if cmd.paths:
         text = data.Text(cmd.paths)
+        text.import_data()
+        text.clean()
 
 if __name__ == "__main__":
     main()

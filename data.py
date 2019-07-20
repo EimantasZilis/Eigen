@@ -17,7 +17,6 @@ class Text:
     def __init__(self, paths):
         self.paths = paths
         self.files = []
-        self.initialise()
 
     def initialise(self):
         self.import_data()
@@ -39,7 +38,7 @@ class Text:
             print(" >> {}".format(os.path.join(path, file.filename)))
             self.files.append(file)
 
- def clean(self):
+    def clean(self):
         """ Clean data by tokenizing words and sentences,
         removing stop words, lematizing words and applying
         other processing """
@@ -89,6 +88,6 @@ class Text:
         for words in file.words:
             sent = [w for w in words
                     if len(w) > 1 if w[0].isalpha() if w != "n't"]
-            if sent:a
+            if sent:
                 ok_words.append(sent)
         file.words = ok_words
