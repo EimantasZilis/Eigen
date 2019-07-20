@@ -74,10 +74,14 @@ class Text:
         1) Single character words
         2) Remove words that start with non-alphanumberic
         characters. These have most likely originated from
-        incorrect tokenization, leaving words like "'ve", etc. """
+        incorrect tokenization, leaving bad words like
+        "'ve", etc.
+        3) Remove "n't" words. The have most likely come
+        from tokenization. """
         ok_words = []
         for words in file.words:
-            sent = [w for w in words if len(w) > 1 if w[0].isalpha()]
-            if sent:
+            sent = [w for w in words
+                    if len(w) > 1 if w[0].isalpha() if w != "n't"]
+            if sent:a
                 ok_words.append(sent)
         file.words = ok_words
