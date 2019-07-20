@@ -41,6 +41,7 @@ class DataImport:
             self.tokenize_words(file)
             self.remove_stopwords(file)
             self.apply_lematizing(file)
+            self.other_processing(file)
             self.files.append(file)
 
     @staticmethod
@@ -66,3 +67,17 @@ class DataImport:
         or chops off the derivational affixes"""
         file.words = [[LEM.lemmatize(w, "v") for w in words]
                        for words in file.words]
+
+    @staticmethod
+    def other_processing(file):
+        """ Remove the following words:
+        1) Single character words
+        2) Remove words that start with non-alphanumberic
+        characters. These have most likely originated from
+        incorrect tokenization, leaving words like "'ve", etc. """
+        ok_words = []
+        for words in file.words:
+            sent = [w for w in words if len(w) > 1 if w[0].isalpha()]
+            if sent:
+                ok_words.append(sent)
+        file.words = ok_words
