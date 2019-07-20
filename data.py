@@ -34,15 +34,22 @@ class Text:
     def check_directory(self, path):
         """ Check directory and process files within"""
         dir = Directory(path)
-        print("Processing data files...")
+        print("Reading data files...")
         for file in dir.get_files():
             print(" >> {}".format(os.path.join(path, file.filename)))
+            self.files.append(file)
+
+ def clean(self):
+        """ Clean data by tokenizing words and sentences,
+        removing stop words, lematizing words and applying
+        other processing """
+        print("Cleaning data...")
+        for file in self.files:
             self.tokenize_sentences(file)
             self.tokenize_words(file)
             self.remove_stopwords(file)
             self.apply_lematizing(file)
             self.other_processing(file)
-            self.files.append(file)
 
     @staticmethod
     def tokenize_sentences(file):
