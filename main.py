@@ -1,6 +1,6 @@
 import argparse
 import data
-import nltk
+from nltk import download
 
 def cmd_parser():
     """ Initialise and define user input commands """
@@ -15,14 +15,16 @@ def main():
     cmd = cmd_parser()
     if cmd.install:
         print("Installing nltk packages...")
-        nltk.download('punkt')
-        nltk.download('stopwords')
-        nltk.download('wordnet')
+        download('punkt')
+        download('stopwords')
+        download('wordnet')
 
     if cmd.paths:
         text = data.Text(cmd.paths)
         text.import_data()
         text.clean()
+        text.analyse()
+        common_words = text.most_common_words(20)
 
 if __name__ == "__main__":
     main()

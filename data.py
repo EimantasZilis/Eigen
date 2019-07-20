@@ -1,5 +1,6 @@
 import os
 from nltk.corpus import stopwords
+from nltk.probability import FreqDist
 from nltk.tokenize import sent_tokenize
 from nltk.tokenize import word_tokenize
 from nltk.stem.wordnet import WordNetLemmatizer
@@ -15,6 +16,8 @@ class Text:
     removes stopwords and lemmatizes words """
 
     def __init__(self, paths):
+        self.freq_dist = None
+        self.all_words = []
         self.paths = paths
         self.files = []
 
@@ -91,3 +94,24 @@ class Text:
             if sent:
                 ok_words.append(sent)
         file.words = ok_words
+
+    def analyse(self):
+        """ Analyse text and work out frequency distribution """
+        self.get_all_words()
+        self.get_frequency_distribution()
+
+    def get_all_words(self):
+        """ Get all words across files and put
+        it in a single list"""
+        for file in self.files:
+            for sentences in file.words:
+                self.all_words.extend(sentences)
+
+    def get_frequency_distribution(self):
+        """ Generate frequency distribution"""
+        self.freq_dist = FreqDist(self.all_words)
+
+    def most_common_words(self, n):
+        """ Generate n number of most commonly used words"""
+        words_frequencies = self.freq_dist.most_common(n)
+        return words_frequencies
