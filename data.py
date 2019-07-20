@@ -9,7 +9,7 @@ from file.management import Directory
 STOP_WORDS = set(stopwords.words('english'))
 LEM = WordNetLemmatizer()
 
-class DataImport:
+class Text:
     """ Checks all input paths, gets all files, subfolders,
     import the data from supported files and cleans it. It
     removes stopwords and lemmatizes words """

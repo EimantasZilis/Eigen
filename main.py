@@ -7,8 +7,8 @@ def cmd_parser():
     parser = argparse.ArgumentParser(description='Create hashtags')
     parser.add_argument("-i",  action="store_true", default=False, dest="install",
                         help="Install relevant nltk packages")
-    parser.add_argument("-p", nargs="+", dest="path", help="Enter path. \
-                        It finds all files within and generates hashtags")
+    parser.add_argument("-p", nargs="+", dest="paths", help="Enter paths. \
+                        It will find all files within and generates hashtags")
     return parser.parse_args()
 
 def main():
@@ -18,8 +18,9 @@ def main():
         nltk.download('punkt')
         nltk.download('stopwords')
         nltk.download('wordnet')
-    if cmd.path:
-        sentences = data.DataImport(cmd.path)
+
+    if cmd.paths:
+        text = data.Text(cmd.paths)
 
 if __name__ == "__main__":
     main()
