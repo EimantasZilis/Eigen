@@ -19,3 +19,8 @@ Valid file extensions are specified in file > extensions.py. While it currently 
 Two (incomplete) example file formats were put against extensions.py: `Pdf` and `Docx`. In order to make software useable with PDF and DOCX formats, implement `read` methods that will read the files and put the data against `raw` attribute.
 
 Finally, any file extension class must be put against `VALID_EXTENSIONS` variable. The rest of the software uses this dictionary to figure out which file extensions are supported and can be processed.
+
+### Most common words
+Software copiles the list of most commonly used words within supported files. It excludes any 'stopwords' which are most common words in English language which appear regardless of the context. These are 'I, You, me', etc.
+
+The list of stopwords were taken from https://gist.github.com/sebleier/554280#gistcomment-2838837 and was hardcoded in stopwords.json. If the file with stopwords is not present, it will attempt to use the standard list of stopwords from `nltk.corpus` library 
