@@ -21,6 +21,34 @@ Two (incomplete) example file formats were put against extensions.py: `Pdf` and 
 Finally, any file extension class must be put against `VALID_EXTENSIONS` variable. The rest of the software uses this dictionary to figure out which file extensions are supported and can be processed.
 
 ### Most common words
-Software copiles the list of most commonly used words within supported files. It excludes any 'stopwords' which are most common words in English language which appear regardless of the context. These are 'I, You, me', etc.
+Software compiles the list of most commonly used words within supported files. It excludes any 'stopwords' which are most common words in English language which appear regardless of the context. These are 'I, you, me', etc.
 
-The list of stopwords were taken from https://gist.github.com/sebleier/554280#gistcomment-2838837 and was hardcoded in stopwords.json. If the file with stopwords is not present, it will attempt to use the standard list of stopwords from `nltk.corpus` library 
+The list of stopwords were taken from https://gist.github.com/sebleier/554280#gistcomment-2838837 and was hardcoded in stopwords.json. If the file with stopwords is not present, it will attempt to use the standard list of stopwords from `nltk.corpus` library
+
+### Output
+Once it finds the list of most common words, it will export a `output.csv` file containing the following columns:
+ - Word (#)
+ - Frequency
+ - Document
+ - Sentence containing the word
+
+'Word (#)' Represents one of the most common words appearing in files.
+'Frequency' is the number of times the most common word was found across files.
+'Document' is the location of the file it was referenced in.
+'Sentence containing the word' is the sentence the most common word was mentioned within the 'Document'.
+
+### Usage
+First, relevant `nltk` packages must be installed. To do so, execute
+`python main.py -i`
+This should only be done once.
+
+To find most common words used in files, run the software by passing in directory that contains relevant files. E.g. to process all files within `C:\Users\xxx\Desktop\test docs\` and `C:\Users\xxx\Documents` directories execute
+`python main.py --PATHS "C:\Users\xxx\Desktop\test docs" "C:\Users\xxx\Documents"`
+
+By default, it will export output.csv to desktop. To override output location, use `--OUTPUT` parameter. For example,
+`python main.py --PATHS "C:\Users\xxx\Desktop\test docs" "C:\Users\xxx\Documents" --OUTPUT C:\Users\xxx\downloads`
+would export output.csv to downloads folder instead.
+
+Lastly, the software will look for 20 most common words by default. This can be changed using `--COUNT` parameter. Enter an integer which specifies the number of words to look for. For example,
+`python main.py --PATHS "C:\Users\xxx\Desktop\test docs" "C:\Users\xxx\Documents" --OUTPUT C:\Users\xxx\downloads --COUNT 100`
+would look 100 most common words instead.
