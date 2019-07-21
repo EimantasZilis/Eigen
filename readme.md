@@ -55,3 +55,5 @@ would export output.csv to downloads folder instead. Lastly, the software will l
 `python main.py --PATHS "C:\Users\xxx\Desktop\test docs" "C:\Users\xxx\Documents" --OUTPUT "C:\Users\xxx\downloads" --COUNT 100`
 
 would look 100 most common words and export the output to Downloads folder.
+
+You can see help on each of these parameters by running `python main.py -h`
