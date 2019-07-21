@@ -1,8 +1,7 @@
 import os
 from collections import defaultdict
-import sys
+import json
 
-from nltk.corpus import stopwords
 from nltk.probability import FreqDist
 from nltk.tokenize import sent_tokenize
 from nltk.tokenize import word_tokenize
@@ -11,7 +10,6 @@ import pandas as pd
 
 from file.management import Directory
 
-STOP_WORDS = set(stopwords.words('english'))
 LEM = WordNetLemmatizer()
 
 class Text:
@@ -22,11 +20,9 @@ class Text:
     def __init__(self, paths):
         self.freq_dist = None
         self.all_words = []
+        self.stopwords = None
         self.paths = paths
         self.files = []
-
-    def initialise(self):
-        self.import_data()
 
     def import_data(self):
         """ Read and import data from all files from paths attribute
@@ -50,6 +46,7 @@ class Text:
         removing stop words, lematizing words and applying
         other processing """
         print("Cleaning data...")
+        self.get_stopwords()
         for file in self.files:
             self.tokenize_sentences(file)
             self.tokenize_words(file)
@@ -69,10 +66,9 @@ class Text:
     def tokenize_words(file):
         file.words = [word_tokenize(words) for words in file.sentences]
 
-    @staticmethod
-    def remove_stopwords(file):
+    def remove_stopwords(self, file):
         """ Strip away stopwords from words attribute in file"""
-        file.words = [[w.lower() for w in words if w.lower() not in STOP_WORDS]
+        file.words = [[w.lower() for w in words if w.lower() not in self.stopwords]
                        for words in file.words]
     @staticmethod
     def apply_lematizing(file):
@@ -119,6 +115,20 @@ class Text:
         """ Generate n number of most commonly used words"""
         words_frequencies = self.freq_dist.most_common(n)
         return words_frequencies
+
+    def get_stopwords(self):
+        """ Rathen than using stopwords from nltk.corpus,
+        it reads data from stopwords.json. The list of
+        stopwords in this file was taken from
+        https://gist.github.com/sebleier/554280#gistcomment-2838837"""
+        try:
+            with open("stopwords.json", "r") as file:
+                self.stopwords = set(json.load(file)["stopwords"])
+        except FileNotFoundError:
+            print("Warning: stopwords.json file not found. \
+                  \n >> Using standard stopwords from nltk.corpus instead")
+            from nltk.corpus import stopwords
+            self.stopwords = set(stopwords.words('english'))
 
 class Output:
     """ Generate output, summarizing most common
