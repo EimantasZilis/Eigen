@@ -8,8 +8,10 @@ def cmd_parser():
     parser = argparse.ArgumentParser(description='Create hashtags')
     parser.add_argument("-i", action="store_true", default=False, dest="install",
                         help="Install relevant nltk packages")
+    parser.add_argument("-c", dest="count", type=int, default=20, help="Set the \
+                        number of most common words to return. Default: 20")
     parser.add_argument("-o", nargs="+", dest="output", help="Set \
-                        directory for output CSV. Default path is user desktop.")
+                            directory for output CSV. Default path is user desktop.")
     parser.add_argument("-p", nargs="+", dest="paths", help="Enter paths. \
                         It will find all files within and generates hashtags")
     return parser.parse_args()
@@ -32,7 +34,7 @@ def main():
         text.import_data()
         text.clean()
         text.analyse()
-        common_words = text.most_common_words(20)
+        common_words = text.most_common_words(cmd.count)
         data.Output(text, common_words, output_path)
 
 if __name__ == "__main__":
