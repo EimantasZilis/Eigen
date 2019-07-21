@@ -40,9 +40,9 @@ Once it finds the list of most common words, it will export a `output.csv` file 
 ### Usage
 First, relevant `nltk` packages must be installed. To do so, execute
 
-`python main.py -i`
+`python main.py --INSTALL`
 
-This should only be done once. To find most common words used in files, run the software by passing in directory that contains relevant files. E.g. to process all files within `C:\Users\xxx\Desktop\test docs\` and `C:\Users\xxx\Documents\` execute
+This should only be done once. To find most common words, run the software by passing in directory with relevant files. E.g. to process all files within `C:\Users\xxx\Desktop\test docs\` and `C:\Users\xxx\Documents\` execute
 
 `python main.py --PATHS "C:\Users\xxx\Desktop\test docs" "C:\Users\xxx\Documents"`
 
