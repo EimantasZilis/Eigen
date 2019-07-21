@@ -91,12 +91,12 @@ class Text:
         "'ve", etc.
         3) Remove "n't" words. The have most likely come
         from tokenization. """
+
         ok_words = []
         for words in file.words:
             sent = [w for w in words
                     if len(w) > 1 if w[0].isalpha() if w != "n't"]
-            if sent:
-                ok_words.append(sent)
+            ok_words.append(sent)
         file.words = ok_words
 
     def analyse(self):
