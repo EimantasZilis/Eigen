@@ -1,10 +1,14 @@
 import os
+from collections import defaultdict
+import sys
+
 from nltk.corpus import stopwords
 from nltk.probability import FreqDist
 from nltk.tokenize import sent_tokenize
 from nltk.tokenize import word_tokenize
 from nltk.stem.wordnet import WordNetLemmatizer
 import pandas as pd
+
 from file.management import Directory
 
 STOP_WORDS = set(stopwords.words('english'))
@@ -115,3 +119,41 @@ class Text:
         """ Generate n number of most commonly used words"""
         words_frequencies = self.freq_dist.most_common(n)
         return words_frequencies
+
+class Output:
+    """ Generate output, summarizing most common
+    words and sentences in which they occur"""
+    def __init__(self, data, common_words):
+        self.common_words = common_words
+        self.data = data
+        self.df = None
+        self.initialise()
+
+    def initialise(self):
+        print("Generating output...")
+        data_output = self.init_data()
+        self.init_dataframe(data_output)
+        self.excel()
+
+    def init_data(self):
+        """ Prepare data to be inserted into dataframe"""
+        data_output = defaultdict(list)
+        for cword, frequency in self.common_words:
+            for file in self.data.files:
+                for sid in range(len(file.words)):
+                    if cword in file.words[sid]:
+                        sent = file.sentences[sid]
+                        file_path = os.path.join(file.path, file.filename)
+                        data_output["Word (#)"].append(cword)
+                        data_output["Frequency"].append(frequency)
+                        data_output["Document"].append(file_path)
+                        data_output["Sentence containing the word"].append(sent)
+        return data_output
+
+    def init_dataframe(self, data_output):
+        """ Initialise dataframe with data"""
+        self.df = pd.DataFrame(data_output)
+
+    def excel(self):
+        """ Generate CSV output"""
+        self.df.to_csv(r"C:\Users\Eimantas\Desktop\output.csv", index=False)

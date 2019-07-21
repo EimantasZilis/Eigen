@@ -25,6 +25,7 @@ def main():
         text.clean()
         text.analyse()
         common_words = text.most_common_words(20)
+        data.Output(text, common_words)
 
 if __name__ == "__main__":
     main()
