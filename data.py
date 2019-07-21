@@ -27,6 +27,7 @@ class Text:
     def import_data(self):
         """ Read and import data from all files from paths attribute
         and its subfolders """
+        print("Reading data files...")
         for path in self.paths:
             try:
                 self.check_directory(path)
@@ -36,7 +37,6 @@ class Text:
     def check_directory(self, path):
         """ Check directory and process files within"""
         dir = Directory(path)
-        print("Reading data files...")
         for file in dir.get_files():
             print(" >> {}".format(os.path.join(path, file.filename)))
             self.files.append(file)
@@ -133,8 +133,9 @@ class Text:
 class Output:
     """ Generate output, summarizing most common
     words and sentences in which they occur"""
-    def __init__(self, data, common_words):
+    def __init__(self, data, common_words, output_path):
         self.common_words = common_words
+        self.output_path = output_path
         self.data = data
         self.df = None
         self.initialise()
@@ -166,4 +167,7 @@ class Output:
 
     def excel(self):
         """ Generate CSV output"""
-        self.df.to_csv(r"C:\Users\Eimantas\Desktop\output.csv", index=False)
+        filename = "output.csv"
+        filepath = os.path.join(self.output_path, filename)
+        print(" >> {}".format(filepath))
+        self.df.to_csv(filepath, index=False)
