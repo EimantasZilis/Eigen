@@ -18,12 +18,12 @@ Valid file extensions are specified in file > extensions.py. While it currently 
 
 Two (incomplete) example file formats were put against extensions.py: `Pdf` and `Docx`. In order to make software useable with PDF and DOCX formats, implement `read` methods that will read the files and put the data against `raw` attribute.
 
-Finally, any file extension class must be put against `VALID_EXTENSIONS` variable. The rest of the software uses this dictionary to figure out which file extensions are supported and can be processed.
+Finally, any file extension class must be put against `VALID_EXTENSIONS`. The rest of the software uses this dictionary to figure out which file extensions are supported and can be processed.
 
 ### Most common words
-Software compiles the list of most commonly used words within supported files. It excludes any 'stopwords' which are most common words in English language which appear regardless of the context. These are 'I, you, me', etc.
+Software compiles the list of most commonly used words within supported files. It excludes any 'stopwords' which are most common words in English language that appear regardless of the context. These are 'I, you, me', etc.
 
-The list of stopwords were taken from https://gist.github.com/sebleier/554280#gistcomment-2838837 and was hardcoded in stopwords.json. If the file with stopwords is not present, it will attempt to use the standard list of stopwords from `nltk.corpus` library
+The list of stopwords were taken from https://gist.github.com/sebleier/554280#gistcomment-2838837 and were hardcoded in stopwords.json. If the file with stopwords is not present, it will attempt to use the standard list of stopwords from `nltk.corpus` library
 
 ### Output
 Once it finds the list of most common words, it will export a `output.csv` file containing the following columns:
@@ -42,7 +42,7 @@ First, relevant `nltk` packages must be installed. To do so, execute
 
 `python main.py --INSTALL`
 
-This should only be done once. To find most common words, run the software by passing in directory with relevant files. E.g. to process all files within `C:\Users\xxx\Desktop\test docs\` and `C:\Users\xxx\Documents\` execute
+This should only be done once. To find most common words, run the software by passing in directories with relevant files. E.g. to process all files within `C:\Users\xxx\Desktop\test docs\` and `C:\Users\xxx\Documents\` execute
 
 `python main.py --PATHS "C:\Users\xxx\Desktop\test docs" "C:\Users\xxx\Documents"`
 
@@ -50,7 +50,7 @@ By default, it will export output.csv to desktop. To override output location, u
 
 `python main.py --PATHS "C:\Users\xxx\Desktop\test docs" "C:\Users\xxx\Documents" --OUTPUT "C:\Users\xxx\downloads"`
 
-would export output.csv to downloads folder instead. Lastly, the software will look for 20 most common words by default. This can be changed using `--COUNT` parameter. Enter an integer which specifies the number of words to look for. For example:
+would export output.csv to downloads folder. Lastly, the software will look for 20 most common words by default. This can be changed using `--COUNT` parameter. Enter an integer which specifies the number of words to look for. For example:
 
 `python main.py --PATHS "C:\Users\xxx\Desktop\test docs" "C:\Users\xxx\Documents" --OUTPUT "C:\Users\xxx\downloads" --COUNT 100`
 
